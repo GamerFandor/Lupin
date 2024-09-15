@@ -1,0 +1,9 @@
+- UI
+    - input framework
+    - switching between frames
+    - button functionality
+    - limiting user access when executing a command
+- sessions
+- automatization
+    - user interface to setup settings
+- console framework (if we have time)
