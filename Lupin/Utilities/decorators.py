@@ -35,11 +35,22 @@ def lupin_module(function):
 # Decorator for the user interface of the module
 def lupin_gui(gui_type : GuiType):
     
-    if GuiType.OUTPUT == gui_type:
-        data = load_data(f'{function.__module__}')
-
     def lupin_gui_decorator(function):
+        if GuiType.OUTPUT == gui_type:
+            data = load_data(f'{function.__module__}')
+            
         def wrapper(*args, **kwargs):
             return function(*args, **kwargs)
         return wrapper
+    
     return lupin_gui_decorator
+
+
+
+# Decorator for the documentation of the module
+def lupin_doc(function):
+
+    def wrapper(*args, **kwargs):
+        return function(*args, **kwargs)
+    
+    return wrapper

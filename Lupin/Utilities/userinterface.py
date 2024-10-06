@@ -1,40 +1,8 @@
 # Imports
-import os
-import sys
-import importlib
 import customtkinter as ctk
 from Utilities.data_manager import new_session
 from Utilities.data_manager import get_all_sessions
-
-
-
-# Function to get a variable from a module dynamically
-def get_variable_from_modules() -> list:
-    folder = 'Modules'
-    variable_name = 'module_config'
-
-    sys.path.insert(0, folder)
-    
-    variables = []
-    
-    # Iterate over Python files in the folder
-    for item in os.listdir(folder):
-        if item.endswith('.py') and item != '__init__.py':
-            module_name = item[:-3]  # Remove '.py' extension
-            try:
-                # Import the module
-                module = importlib.import_module(module_name)
-                
-                # Retrieve the variable from the module
-                if hasattr(module, variable_name):
-                    variables.append(getattr(module, variable_name["display_name"]))
-            except Exception as e:
-                print(f"Error importing module {module_name}: {e}")
-
-    # Remove the folder from the system path
-    sys.path.pop(0)
-    
-    return variables
+from Lupin.Utilities.module_handler import get_modules
 
 
 
@@ -99,6 +67,10 @@ def create_main_frame(app : ctk.CTk) -> ctk.CTkFrame:
     main_button_panel = ctk.CTkFrame(side_panel, height=114)
     main_button_panel.pack(fill="both", padx=5, pady=5)
 
+    for i in get_modules():
+        menu_button = ctk.CTkButton(menu_panel, text=i[1], width=190)
+        menu_button.pack(side="top", padx=5, pady=5)
+
     docs_button = ctk.CTkButton(main_button_panel, text="Generate documentation", width=190)
     docs_button.pack(side="top", fill="y", expand=True, padx=5, pady=5)
 
@@ -129,3 +101,10 @@ def create_main_frame(app : ctk.CTk) -> ctk.CTkFrame:
 
 
     return frame
+
+
+
+# Load module related interface
+def load_module_interface(panel : ctk.CTkFrame, modul : str, interface : str) -> ctk.CTkFrame:
+    frame = ctk.CTkFrame(panel)
+    frame.pack(fill="both", expand=True)
