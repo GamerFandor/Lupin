@@ -1,14 +1,40 @@
-COMMERCIAL LICENSE AGREEMENT
+COMMERCIAL REVENUE SHARING LICENSE AGREEMENT
 
-This software is licensed under the Apache 2.0 License for private and development purposes. However, if you wish to use this software for commercial purposes, you must purchase a commercial license from [Your Company].
+This Commercial Revenue Sharing License Agreement ("Agreement") governs the commercial use of [Software Name] ("Software"), an open-source project licensed under the Apache 2.0 License for non-commercial purposes. By using the Software for any revenue-generating activities, including but not limited to incorporating it into products, services, or your own development that results in financial gain, you ("Licensee") agree to the terms outlined in this Agreement.
 
-### Definition of Commercial Use:
-Commercial use refers to any use of the software that directly or indirectly results in financial gain, including, but not limited to:
-- Incorporating the software into a product or service that is sold or otherwise provided for a fee.
-- Using the software in a business environment where the software contributes to generating revenue.
+1. Scope of Commercial Use:
+This Agreement applies to any use of the Software that generates revenue, whether through direct sales, incorporation into commercial products or services, or any other form of monetization. It also applies to any derived work based on the Software that is used commercially.
 
-By using this software for commercial purposes without purchasing a commercial license, you are in violation of the licensing terms.
+2. Minimum Revenue Share:
+The Licensee agrees to pay the Licensor a minimum of 5% of gross revenue generated from the commercial use of the Software or any derived work that incorporates the Software. The 5% applies to all sales, uses, or activities resulting in financial gain.
 
-For more information or to purchase a commercial license, please contact us at:
-[Your Company Name] (Not yet available) 
+3. Proportional Revenue Share Increase:
+The revenue share may increase based on the extent to which the Software contributes to the Licensee’s commercial product or service:
+
+If the Software constitutes a significant portion of the Licensee’s product or service offering, or is essential to the operation of the revenue-generating function, the percentage of revenue share may increase proportionally, up to a maximum of [Insert Maximum Percentage]%.
+The exact percentage will be determined based on the extent of the Software’s involvement in the commercial use, and will be agreed upon between the Licensee and the Licensor.
+4. Reporting and Payment:
+The Licensee must provide detailed revenue reports to the Licensor on a [monthly/quarterly/annual] basis, outlining the total revenue generated from the use of the Software and the calculated revenue share owed.
+Payments are due within [30/60] days of the end of each reporting period.
+5. Non-Support Disclaimer:
+The Licensor does not provide any technical support, maintenance, or updates for the Software under this Agreement. The Licensee is solely responsible for all aspects of using the Software in a commercial capacity, including any modifications, deployment, or integration into their product or service.
+
+6. Application to Derived Works:
+If the Licensee or any third party publishes a derived work based on the Software, and such derived work is used by another party for commercial purposes, this Agreement applies to the derived work. Any party using the derived work for financial gain must pay a minimum of 5% of gross revenue, with potential proportional increases based on the derived work’s role in generating revenue.
+
+7. Jurisdiction:
+This Agreement is valid and enforceable in all territories where the Software is used for commercial purposes, including but not limited to the European Union, United States, and Asia. The Licensee agrees to comply with all applicable laws and regulations governing revenue-sharing agreements in these regions.
+
+8. Governing Law:
+This Agreement shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions. Any disputes arising under this Agreement will be subject to the exclusive jurisdiction of the courts in [Your Jurisdiction].
+
+9. Non-Commercial Use:
+For any non-commercial use, the Software is licensed under the Apache 2.0 License. Users may freely use, modify, and distribute the Software under the terms of the Apache 2.0 License. However, if any non-commercial use leads to further distribution or commercialization of derived works, the terms of this Agreement apply to any commercial use of such derived works.
+
+10. Violation of Terms:
+Any use of the Software for commercial purposes without adhering to the terms of this Agreement, including failure to report revenue or pay the required share, constitutes a breach of this Agreement. The Licensor reserves the right to pursue legal remedies for any such violations, including but not limited to the recovery of unpaid revenue share.
+
+For inquiries about licensing or to report commercial use, please contact: [Your Company Name]
+[Company Name] (Not yet available) 
 [Email Address]  (Not yet available)
+
