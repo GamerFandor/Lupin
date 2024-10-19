@@ -1,6 +1,7 @@
 # Imports
 from docx import Document
 import Utilities.output_parser as op
+import Utilities.ui_components as ui_comps
 import Utilities.documentation_formatter as doc
 from Utilities.command_execution import execute_command, CommandExecutionError
 from Utilities.decorators import lupin_module, lupin_gui, lupin_doc, GuiType, GuiState
@@ -9,7 +10,7 @@ from Utilities.decorators import lupin_module, lupin_gui, lupin_doc, GuiType, Gu
 
 # Configuration and prerequisites of the module
 module_config = {
-    'priority' : 10,
+    'order' : 10,
     'display_name' : 'Ping Sweep',
     'category' : 'Discovery',
     'required_apps' : [
@@ -39,11 +40,16 @@ settings_data_model = {
 
 
 
+# Input components
+targets_textbox = None
+
+
+
 # Main functionality of the module
 @lupin_module
-def core(settings : dict) -> dict:
+def core() -> dict:
     try:
-        targets = ' '.join(settings['targets'])
+        targets = ' '.join(settings_data_model['targets'])
 
         stdout, stderr, returncode = execute_command(f'nmap -sL {targets} -oG -')
         data_list = op.output_to_list(stdout)
@@ -63,7 +69,8 @@ def core(settings : dict) -> dict:
             else:
                 output_data_model['down'].append(ip)
 
-        output_data_model['targets'] = settings['targets']
+        global output_data_model
+        output_data_model['targets'] = settings_data_model['targets']
 
         return output_data_model
 
@@ -74,26 +81,36 @@ def core(settings : dict) -> dict:
 
 # Settings user interface of the module
 @lupin_gui(GuiType.SETTINGS)
-def settings_gui(settings : dict):
-    pass
+def settings_gui(root):
+    global targets_textbox
+    ui_comps.subtitle(root, 'Targets')
+    ui_comps.text(root, 'Enter the targets (each target should be in a new line). You also can use CIDR notation for mutliple targets.')
+    targets_textbox = ui_comps.create_textbox(root)
 
 
 
 # Output user interface of the module
 @lupin_gui(GuiType.OUTPUT)
-def output_gui(output : dict):
-    pass
+def output_gui(root):
+    ui_comps.subtitle(root, 'Targets')
+    ui_comps.create_unordered_list(root, output_data_model['targets'])
+
+    ui_comps.subtitle(root, 'Up hosts')
+    ui_comps.create_unordered_list(root, output_data_model['up'])
+
+    ui_comps.subtitle(root, 'Down hosts')
+    ui_comps.create_unordered_list(root, output_data_model['down'])
 
 
 
 # Documentation of the module
 @lupin_doc
-def documentation(document: Document, results: dict) -> None:
+def documentation(document: Document) -> None:
     doc.heading(document, 'Ping Sweep')
     doc.paragraph(document, 'The Ping Sweep module is used to scan the network for live hosts.')
 
     doc.subheading(document, 'Targets')
-    doc.unordered_list(document, results['targets'])
+    doc.unordered_list(document, output_data_model['targets'])
 
     doc.subheading(document, 'Up hosts')
-    doc.ordered_list(document, results['up'])
+    doc.ordered_list(document, output_data_model['up'])

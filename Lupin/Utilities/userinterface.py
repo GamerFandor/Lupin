@@ -2,7 +2,8 @@
 import customtkinter as ctk
 from Utilities.data_manager import new_session
 from Utilities.data_manager import get_all_sessions
-from Lupin.Utilities.module_handler import get_modules
+from Utilities.module_handler import get_modules
+import Utilities.ui_components as ui_comps
 
 
 
@@ -96,9 +97,20 @@ def create_main_frame(app : ctk.CTk) -> ctk.CTkFrame:
     output_panel_button = ctk.CTkButton(button_container, text="Output", width=70)
     output_panel_button.pack(side="left", padx=5, pady=5)
 
-    execute_button = ctk.CTkButton(button_container, text="Execute", width=70)
+    ui_comps.title(settings_panel, "Settings")
+    ui_comps.subtitle(settings_panel, "Subtitle")
+    ui_comps.text(settings_panel, "Lorem ipsum bro")
+    input = ui_comps.create_radiobutton_group(settings_panel, ["You wanna do this?", "You wanna do that?"])
+
+    ui_comps.create_table(settings_panel, ["Column 1", "Column 2"], [["Row 1", "Row 2"], ["Row 3", "Row 4"]])
+    ui_comps.create_unordered_list(settings_panel, ["Item 1", "Item 2", "Item 3"])
+    ui_comps.create_ordered_list(settings_panel, ["Item 1", "Item 2", "Item 3"])
+
+    execute_button = ctk.CTkButton(button_container, text="Execute", width=70, command=lambda: print(ui_comps.get_radiobutton_value(input)))
     execute_button.pack(side="right", padx=5, pady=5)
 
+
+    
 
     return frame
 
