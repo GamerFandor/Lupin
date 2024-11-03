@@ -2,6 +2,7 @@
 import os
 import inspect
 from enum import Enum
+from Utilities.userinterface import CURRENT_SESSION
 from Utilities.data_manager import save_data, load_data
 
 
@@ -25,7 +26,8 @@ def lupin_module(function):
 
     def wrapper(*args, **kwargs):
         result = function(*args, **kwargs)
-        save_data(result, f'{function.__module__}')
+        save_data(result, f'{function.__module__}', CURRENT_SESSION)
+        print(result)
         return result
     
     return wrapper
@@ -37,10 +39,12 @@ def lupin_gui(gui_type : GuiType):
     
     def lupin_gui_decorator(function):
         if GuiType.OUTPUT == gui_type:
-            data = load_data(f'{function.__module__}')
-            
-        def wrapper(*args, **kwargs):
-            return function(*args, **kwargs)
+            data = load_data(CURRENT_SESSION, f'{function.__module__}')
+            def wrapper(*args, **kwargs):
+                return function(*args, data=data, **kwargs)
+        else:
+            def wrapper(*args, **kwargs):
+                return function(*args, **kwargs)
         return wrapper
     
     return lupin_gui_decorator

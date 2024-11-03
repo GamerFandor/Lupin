@@ -1,5 +1,8 @@
 # Imports
 from docx import Document
+from Utilities.data_manager import load_data
+from Utilities.module_handler import get_modules, call_module_function
+from Utilities.data_manager import get_data_files, get_saves_directory
 
 
 
@@ -46,3 +49,19 @@ def table(document: Document, header_row_data : list, data : list) -> None:
         row_cells = table.add_row().cells
         for i, cell in enumerate(row):
             row_cells[i].text = cell
+
+
+
+# Create documentation
+def generate_documentation(CURRENT_SESSION):
+    document = Document()
+    document.add_heading('Documentation', level=1)
+    data_files = [get_saves_directory().replace("\\", "/") + "/" + data for data in get_data_files(CURRENT_SESSION)]
+    for i in get_modules():
+        for j in data_files:
+            if j.endswith(i[0] + ".json"):
+                call_module_function(i[0], 'documentation', document, load_data(CURRENT_SESSION, i[0]))
+
+    document.save(get_saves_directory().replace("\\", "/") + "/" + CURRENT_SESSION + "/documentation.docx")
+
+    

@@ -18,8 +18,7 @@ module_config = {
     ],
     'required_modules' : [],
     'is_network_required' : True,
-    'is_wifi_adapter_required' : False,
-    'is_bluetooth_adapter_required' : False
+    'is_wifi_adapter_required' : False
 }
 
 
@@ -48,6 +47,7 @@ targets_textbox = None
 # Main functionality of the module
 @lupin_module
 def core() -> dict:
+    global output_data_model, settings_data_model
     try:
         targets = ' '.join(settings_data_model['targets'])
 
@@ -69,7 +69,6 @@ def core() -> dict:
             else:
                 output_data_model['down'].append(ip)
 
-        global output_data_model
         output_data_model['targets'] = settings_data_model['targets']
 
         return output_data_model
@@ -79,38 +78,45 @@ def core() -> dict:
 
 
 
+# This function is used to read the input from the user
+def read_input():
+    global settings_data_model, targets_textbox
+    settings_data_model['targets'] = ui_comps.get_multiline_input_value(targets_textbox)
+
+
+
 # Settings user interface of the module
 @lupin_gui(GuiType.SETTINGS)
 def settings_gui(root):
     global targets_textbox
     ui_comps.subtitle(root, 'Targets')
     ui_comps.text(root, 'Enter the targets (each target should be in a new line). You also can use CIDR notation for mutliple targets.')
-    targets_textbox = ui_comps.create_textbox(root)
+    targets_textbox = ui_comps.create_multiline_input(root)
 
 
 
 # Output user interface of the module
 @lupin_gui(GuiType.OUTPUT)
-def output_gui(root):
+def output_gui(root, data: dict):
     ui_comps.subtitle(root, 'Targets')
-    ui_comps.create_unordered_list(root, output_data_model['targets'])
+    ui_comps.create_unordered_list(root, data['targets'])
 
     ui_comps.subtitle(root, 'Up hosts')
-    ui_comps.create_unordered_list(root, output_data_model['up'])
+    ui_comps.create_unordered_list(root, data['up'])
 
     ui_comps.subtitle(root, 'Down hosts')
-    ui_comps.create_unordered_list(root, output_data_model['down'])
+    ui_comps.create_unordered_list(root, data['down'])
 
 
 
 # Documentation of the module
 @lupin_doc
-def documentation(document: Document) -> None:
+def documentation(document: Document, data: dict) -> None:
     doc.heading(document, 'Ping Sweep')
     doc.paragraph(document, 'The Ping Sweep module is used to scan the network for live hosts.')
 
     doc.subheading(document, 'Targets')
-    doc.unordered_list(document, output_data_model['targets'])
+    doc.unordered_list(document, data['targets'])
 
     doc.subheading(document, 'Up hosts')
-    doc.ordered_list(document, output_data_model['up'])
+    doc.ordered_list(document, data['up'])

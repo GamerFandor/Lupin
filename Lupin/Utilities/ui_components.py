@@ -8,7 +8,7 @@ def create_multiline_input(frame : ctk.CTkFrame) -> ctk.CTkTextbox:
     return input
 
 def get_multiline_input_value(input : ctk.CTkTextbox) -> str:
-    return input.get("0.0", "end").split("\n")[:-1]
+    return input.get("1.0", "end").split("\n")[:-1]
 
 def create_singleline_input(frame: ctk.CTkFrame) -> ctk.CTkEntry:
     input = ctk.CTkEntry(frame)

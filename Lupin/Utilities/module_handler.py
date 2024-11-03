@@ -2,6 +2,7 @@
 import os
 import sys
 import importlib
+from docx import Document
 
 
 
@@ -16,11 +17,12 @@ def get_modules() -> list:
             module_name = item[:-3]
             try:
                 module = importlib.import_module(module_name)
-                modules.append((module_name, module.module_config["display_name"]))
+                modules.append((module_name, module.module_config["display_name"], module.module_config["order"], module.module_config["required_apps"], module.module_config["required_modules"], module.module_config["is_network_required"], module.module_config["is_wifi_adapter_required"]))
             except Exception as e:
                 print(f"Failed to import {module_name}: {e}")
 
-    sys.path.pop(0)    
+    sys.path.pop(0)  
+    modules.sort(key=lambda x: x[2])  
     return modules
 
 
@@ -49,3 +51,15 @@ def get_module_variable(module_name: str, variable_name: str):
 
     sys.path.pop(0)
     return variable
+
+
+
+# Function to get the runned modules
+def get_runned_modules() -> list:
+    return []
+
+
+
+# Create documentation
+def create_documentation(document : Document) -> None:
+    pass
