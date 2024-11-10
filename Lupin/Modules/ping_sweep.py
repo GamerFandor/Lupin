@@ -3,6 +3,7 @@ from docx import Document
 import Utilities.output_parser as op
 import Utilities.ui_components as ui_comps
 import Utilities.documentation_formatter as doc
+from Utilities.userinterface import CURRENT_SESSION
 from Utilities.command_execution import execute_command, CommandExecutionError
 from Utilities.decorators import lupin_module, lupin_gui, lupin_doc, GuiType, GuiState
 
